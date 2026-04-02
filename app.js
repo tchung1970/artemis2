@@ -94,8 +94,8 @@ let earthOrbitLine, moonOrbitLine;
 let labels = [];
 let showLabels = true;
 let showOrbits = true;
-let selectedDay = null; // null = live/real-time, 1-11 = jump to that day
-let simElapsedMs = null; // when a day is selected, holds the fixed elapsed time
+let selectedDay = 1; // default to Day 1 on load
+let simElapsedMs = 12 * 3600000; // middle of Day 1 (12h into mission)
 
 const trajectoryPoints = [];
 const totalTrajectorySegments = 2000;
@@ -142,6 +142,10 @@ function init() {
 
     window.addEventListener('resize', onResize);
     setupUI();
+
+    // Default to Day 1, follow spacecraft
+    document.querySelector('.day-btn[data-day="1"]').classList.add('active');
+    setTimeout(() => followSpacecraft(), 200);
 
     // Dismiss loading screen after first render
     renderer.render(scene, camera);
@@ -253,8 +257,9 @@ function createEarth() {
         (texture) => {
             earth.material = new THREE.MeshPhongMaterial({
                 map: texture,
-                shininess: 15,
-                specular: new THREE.Color(0x333333),
+                emissive: new THREE.Color(0x0a1a3a),
+                shininess: 25,
+                specular: new THREE.Color(0x4466aa),
             });
         }
     );
@@ -276,7 +281,7 @@ function createEarth() {
     const cloudMat = new THREE.MeshPhongMaterial({
         color: 0xffffff,
         transparent: true,
-        opacity: 0.35,
+        opacity: 0.2,
         depthWrite: false,
     });
     const clouds = new THREE.Mesh(cloudGeo, cloudMat);
@@ -940,8 +945,9 @@ function updateMissionInfo(progress, elapsedHours, elapsedMs) {
     }
     document.getElementById('velocity').textContent = `${velocity.toFixed(2)} km/s`;
 
-    // Update day description
+    // Update day label and description
     if (dayData) {
+        document.getElementById('day-label').textContent = 'DAY ' + (dayIndex + 1);
         document.getElementById('day-description').textContent = dayData.description;
     }
 
@@ -1040,6 +1046,7 @@ function setupUI() {
             // Immediately update day description
             const dayData = DAY_DATA[day - 1];
             if (dayData) {
+                document.getElementById('day-label').textContent = 'DAY ' + day;
                 document.getElementById('day-description').textContent = dayData.description;
                 document.getElementById('mission-phase').textContent = dayData.phase;
             }
