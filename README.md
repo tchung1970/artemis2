@@ -4,7 +4,9 @@ An interactive 3D visualization of NASA's Artemis II mission — the first crewe
 
 ![Artemis II Flight Simulation](https://img.shields.io/badge/Three.js-r128-blue) ![License](https://img.shields.io/badge/license-MIT-green)
 
-**[Live Demo](https://ai.tchung.org/artemis2/)**
+## Live Demo
+
+https://ai.tchung.org/artemis2/
 
 ## Overview
 
