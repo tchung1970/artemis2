@@ -94,4 +94,4 @@ Written with [Claude Opus 4.6](https://www.anthropic.com/news/claude-opus-4-6) b
 
 ## License
 
-MIT
+This project is open source and available under the [MIT License](LICENSE).
