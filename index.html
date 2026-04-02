@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artemis II Flight Simulation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="canvas-container"></div>
+
+    <div class="site-title">ARTEMIS II FLIGHT SIMULATION</div>
+
+
+    <!-- Right sidebar -->
+    <div class="sidebar">
+        <div class="mission-header">
+            <h1>ARTEMIS II</h1>
+            <div class="mission-status">
+                <span class="status-dot"></span>
+                <span class="status-text" id="mission-phase">EARTH ORBIT</span>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-label">MISSION ELAPSED TIME</div>
+            <div class="info-value met" id="met">00d 00h 00m 00s</div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-label">Distance from Earth</div>
+            <div class="info-value" id="dist-earth">— km</div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-label">Distance from Moon</div>
+            <div class="info-value" id="dist-moon">— km</div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-label">Velocity</div>
+            <div class="info-value" id="velocity">— km/s</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="info-section">
+            <div class="info-label">DAY SUMMARY</div>
+            <div class="day-description" id="day-description">
+                Liftoff on SLS. ICPS fires to raise orbit, then again for high-Earth orbit insertion. Crew checks Orion systems — water, toilet, CO₂ removal. Orion handling test, ICPS separation & proximity ops demo. TLI geometry engine firing. DSN emergency comms check.
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="info-section">
+            <div class="info-label">CREW</div>
+            <div class="crew-list">
+                <div class="crew-member">
+                    <span class="crew-name">Reid Wiseman</span>
+                    <span class="crew-role">Commander</span>
+                </div>
+                <div class="crew-member">
+                    <span class="crew-name">Victor Glover</span>
+                    <span class="crew-role">Pilot</span>
+                </div>
+                <div class="crew-member">
+                    <span class="crew-name">Christina Koch</span>
+                    <span class="crew-role">Mission Specialist 1</span>
+                </div>
+                <div class="crew-member">
+                    <span class="crew-name">Jeremy Hansen</span>
+                    <span class="crew-role">Mission Specialist 2</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="info-section">
+            <div class="info-label">MISSION TIMELINE</div>
+            <div class="timeline" id="timeline">
+                <div class="timeline-item active" data-phase="launch">
+                    <span class="timeline-dot"></span>
+                    <span class="timeline-text">Launch & ICPS Ops</span>
+                    <span class="timeline-time">Day 1</span>
+                </div>
+                <div class="timeline-item" data-phase="tli">
+                    <span class="timeline-dot"></span>
+                    <span class="timeline-text">Trans-Lunar Injection</span>
+                    <span class="timeline-time">Day 2</span>
+                </div>
+                <div class="timeline-item" data-phase="outbound">
+                    <span class="timeline-dot"></span>
+                    <span class="timeline-text">Outbound Coast</span>
+                    <span class="timeline-time">Day 3–5</span>
+                </div>
+                <div class="timeline-item" data-phase="lunar-flyby">
+                    <span class="timeline-dot"></span>
+                    <span class="timeline-text">Lunar Flyby</span>
+                    <span class="timeline-time">Day 6</span>
+                </div>
+                <div class="timeline-item" data-phase="return">
+                    <span class="timeline-dot"></span>
+                    <span class="timeline-text">Return Coast</span>
+                    <span class="timeline-time">Day 7–9</span>
+                </div>
+                <div class="timeline-item" data-phase="reentry">
+                    <span class="timeline-dot"></span>
+                    <span class="timeline-text">Re-entry & Splashdown</span>
+                    <span class="timeline-time">Day 10</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section mission-facts">
+            <div class="info-label">VEHICLE</div>
+            <div class="fact-row"><span>Launch Vehicle</span><span>SLS Block 1</span></div>
+            <div class="fact-row"><span>Spacecraft</span><span>Orion MPCV</span></div>
+            <div class="fact-row"><span>Service Module</span><span>ESM (ESA)</span></div>
+            <div class="fact-row"><span>Heat Shield</span><span>5m ablative</span></div>
+            <div class="fact-row"><span>Re-entry Speed</span><span>Mach 32</span></div>
+            <div class="fact-row"><span>Peak Temp</span><span>~2,760 °C</span></div>
+        </div>
+
+        <div class="live-indicator">
+            <span class="live-dot"></span>
+            <span>Simulation</span>
+        </div>
+    </div>
+
+    <!-- Bottom navigation -->
+    <div class="bottom-nav">
+        <button class="nav-btn" id="nav-solar">◆ Solar System</button>
+        <button class="nav-btn" id="nav-earth">Earth</button>
+        <button class="nav-btn" id="nav-moon">Moon</button>
+        <button class="nav-btn active" id="nav-spacecraft">Spacecraft</button>
+        <button class="nav-btn toggle-btn" id="nav-labels">Labels <span class="toggle on">ON</span></button>
+    </div>
+
+    <!-- Day selector -->
+    <div class="speed-control">
+        <label>Sim Day:</label>
+        <button class="day-btn" data-day="1">Day 1</button>
+        <button class="day-btn" data-day="2">Day 2</button>
+        <button class="day-btn" data-day="3">Day 3</button>
+        <button class="day-btn" data-day="4">Day 4</button>
+        <button class="day-btn" data-day="5">Day 5</button>
+        <button class="day-btn" data-day="6">Day 6</button>
+        <button class="day-btn" data-day="7">Day 7</button>
+        <button class="day-btn" data-day="8">Day 8</button>
+        <button class="day-btn" data-day="9">Day 9</button>
+        <button class="day-btn" data-day="10">Day 10</button>
+    </div>
+
+    <div class="hint">Scroll to zoom · Drag to pan · <a href="https://www.nasa.gov/missions/artemis/nasas-artemis-ii-moon-mission-daily-agenda/" target="_blank" class="nasa-link">NASA Daily Agenda</a> · <a href="https://www.anthropic.com/news/claude-opus-4-6" target="_blank" class="claude-link">Written in Claude Opus 4.6</a></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
