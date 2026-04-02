@@ -91,3 +91,7 @@ npx serve .
 ## Credits
 
 Written with [Claude Opus 4.6](https://www.anthropic.com/news/claude-opus-4-6) by Anthropic.
+
+## License
+
+MIT
