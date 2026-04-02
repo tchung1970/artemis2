@@ -258,8 +258,8 @@ function createEarth() {
             earth.material = new THREE.MeshPhongMaterial({
                 map: texture,
                 emissive: new THREE.Color(0x0a1a3a),
-                shininess: 25,
-                specular: new THREE.Color(0x4466aa),
+                shininess: 0,
+                specular: new THREE.Color(0x000000),
             });
         }
     );
