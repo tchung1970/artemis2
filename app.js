@@ -231,7 +231,7 @@ function createSun() {
     scene.add(glow);
 
     // Point light from Sun
-    const sunPointLight = new THREE.PointLight(0xffeedd, 0.8, 3000);
+    const sunPointLight = new THREE.PointLight(0xffeedd, 0.3, 3000);
     sunPointLight.position.copy(sun.position);
     scene.add(sunPointLight);
 }
@@ -278,10 +278,10 @@ function createEarth() {
 
     // Cloud layer
     const cloudGeo = new THREE.SphereGeometry(EARTH_RADIUS * 1.01, 64, 64);
-    const cloudMat = new THREE.MeshPhongMaterial({
+    const cloudMat = new THREE.MeshBasicMaterial({
         color: 0xffffff,
         transparent: true,
-        opacity: 0.2,
+        opacity: 0.15,
         depthWrite: false,
     });
     const clouds = new THREE.Mesh(cloudGeo, cloudMat);
