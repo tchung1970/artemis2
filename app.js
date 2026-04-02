@@ -142,6 +142,16 @@ function init() {
 
     window.addEventListener('resize', onResize);
     setupUI();
+
+    // Dismiss loading screen after first render
+    renderer.render(scene, camera);
+    setTimeout(() => {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+            loadingScreen.classList.add('fade-out');
+            setTimeout(() => loadingScreen.remove(), 800);
+        }
+    }, 1500);
 }
 
 // --- Stars ---
