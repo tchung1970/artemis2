@@ -378,3 +378,14 @@ canvas {
     text-decoration: none;
     pointer-events: auto;
 }
+
+.github-link {
+    color: #c8d6e5;
+    text-decoration: none;
+    pointer-events: auto;
+}
+
+.github-link:hover {
+    color: #00e5ff;
+    text-decoration: underline;
+}
